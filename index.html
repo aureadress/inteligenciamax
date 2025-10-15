@@ -15,7 +15,6 @@
       background: #ffffff;
       font-family: Segoe UI, Arial, sans-serif;
     }
-
     .login-container {
       background: #bdbdbd;
       width: 400px;
@@ -23,9 +22,8 @@
       text-align: center;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     .logo-wrapper {
-      height: 120px; /* Ajuste conforme necessário */
+      height: 120px;
       width: 320px;
       overflow: hidden;
       display: flex;
@@ -33,7 +31,6 @@
       align-items: center;
       margin: 0 auto 24px auto;
     }
-
     .login-logo {
       width: 100%;
       height: auto;
@@ -41,60 +38,68 @@
       object-fit: contain;
       margin: 0;
     }
-
-    .login-input {
+    .login-input, .login-button {
       width: 100%;
       padding: 12px;
-      margin-bottom: 12px;
+      font-size: 14px;
+      box-sizing: border-box;
+      margin-bottom: 9px; /* metade do espaçamento anterior */
+    }
+    .login-input {
       border: 1px solid #fff;
       background: #fff;
-      font-size: 14px;
       outline: none;
-      box-sizing: border-box;
     }
-
     .password-wrapper {
       position: relative;
-      margin-bottom: 12px;
+      margin-bottom: 9px; /* igual aos outros */
     }
-
-    .password-wrapper button {
+    .password-toggle-btn {
       position: absolute;
-      right: 10px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      width: 32px;
     }
-
+    .password-toggle-btn svg {
+      height: 18px;
+      width: 18px;
+      stroke: #333;
+      stroke-width: 1.5;
+      background: transparent;
+      display: block;
+      pointer-events: none;
+      font-weight: normal;
+    }
     .login-button {
-      width: 100%;
       background: #000;
       color: #fff;
       border: none;
-      padding: 12px;
       font-size: 16px;
       cursor: pointer;
       transition: background 0.3s ease;
+      margin-bottom: 0;
     }
-
     .login-button:hover {
       background: #222;
     }
-
     .forgot {
       text-align: right;
       margin-top: 8px;
     }
-
     .forgot a {
       font-size: 11px;
       color: #000;
       text-decoration: none;
     }
-
     .forgot a:hover {
       text-decoration: underline;
     }
@@ -104,32 +109,45 @@
 
   <div class="login-container">
     <div class="logo-wrapper">
-      <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/ee59bb55bef359505f1af8aee58fb20a2aa4195c/Logo%20MAX.svg"
-           alt="Inteligência MAX"
-           class="login-logo">
+      <img src="Logo%20MAX.svg" alt="Inteligência MAX" class="login-logo">
     </div>
-
     <form onsubmit="event.preventDefault(); alert('Login em desenvolvimento!');">
       <input type="email" placeholder="Digite seu email" required class="login-input">
-
       <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Digite sua senha" required class="login-input">
-        <button type="button" onclick="toggleSenha()">👁</button>
+        <input type="password" id="senha" placeholder="Digite sua senha" required class="login-input" style="margin-bottom:0;">
+        <button type="button" class="password-toggle-btn" id="toggleSenhaBtn" aria-label="Mostrar/ocultar senha">
+          <!-- Olho aberto -->
+          <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor"/>
+            <circle cx="12" cy="12" r="2.5" stroke="currentColor"/>
+          </svg>
+          <!-- Olho com risco -->
+          <svg id="icon-eye-off" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor"/>
+            <circle cx="12" cy="12" r="2.5" stroke="currentColor"/>
+            <line x1="5" y1="19" x2="19" y2="5" stroke="currentColor"/>
+          </svg>
+        </button>
       </div>
-
       <button type="submit" class="login-button">Fazer login</button>
     </form>
-
     <div class="forgot">
       <a href="#">Esqueceu sua senha?</a>
     </div>
   </div>
 
   <script>
-    function toggleSenha() {
-      const senha = document.getElementById('senha');
-      senha.type = senha.type === 'password' ? 'text' : 'password';
-    }
+    const senhaInput = document.getElementById('senha');
+    const toggleBtn = document.getElementById('toggleSenhaBtn');
+    const iconEye = document.getElementById('icon-eye');
+    const iconEyeOff = document.getElementById('icon-eye-off');
+
+    toggleBtn.addEventListener('click', function() {
+      const isPassword = senhaInput.type === 'password';
+      senhaInput.type = isPassword ? 'text' : 'password';
+      iconEye.style.display = isPassword ? 'none' : 'inline';
+      iconEyeOff.style.display = isPassword ? 'inline' : 'none';
+    });
   </script>
 
 </body>
