@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligência MAX - Dashboard</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif; background-color: #f5f5f5;">
+    
+    <!-- Container Principal -->
+    <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px;">
+        
+        <!-- Header com Logo -->
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div style="display: inline-block;">
+                <div style="font-size: 14px; font-weight: 300; letter-spacing: 2px; color: #333; margin-bottom: 5px;">INTELIGÊNCIA</div>
+                <div style="font-size: 48px; font-weight: 700; color: #000; letter-spacing: 3px; line-height: 1;">MAX</div>
+                <div style="width: 80px; height: 3px; background-color: #000; margin: 10px auto 0;"></div>
+            </div>
+        </div>
+
+        <!-- Container de Conteúdo -->
+        <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+            
+            <!-- Seção Configurações (Esquerda) -->
+            <div style="flex: 1; min-width: 300px; background-color: #e8e8e8; padding: 30px 25px; border-radius: 0px;">
+                <h2 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #000; text-align: center; letter-spacing: 2px;">CONFIGURAÇÕES</h2>
+                <p style="margin: 0 0 25px 0; font-size: 11px; color: #666; text-align: center; letter-spacing: 1px;">ACESSO RESTRITO AO ADMINISTRADOR</p>
+                
+                <!-- Grid de Botões -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <a href="prompt-ia.html" style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s; text-decoration: none; display: block; text-align: center;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">PROMPT I.A</a>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">CHATBOOT FLUXO</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">B DADOS I.A</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">USUÁRIOS</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">DEPARTAMENTOS</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">MENSAGEM RÁPIDA</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s; grid-column: span 2;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">WHATSAPP WEB</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'"></button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 18px 10px; font-size: 12px; font-weight: 500; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'"></button>
+                </div>
+            </div>
+
+            <!-- Seção Resumo (Direita) -->
+            <div style="flex: 1.5; min-width: 400px;">
+                
+                <!-- Header Resumo -->
+                <div style="background-color: #e8e8e8; padding: 20px 25px 15px; border-radius: 0px;">
+                    <h2 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: #000; text-align: center; letter-spacing: 2px;">RESUMO</h2>
+                    <p style="margin: 0 0 20px 0; font-size: 11px; color: #666; text-align: center; letter-spacing: 1px;">CONVERSAS EM TEMPO REAL</p>
+                    
+                    <!-- Abas de Filtro -->
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button style="background-color: #888; color: #fff; border: none; padding: 8px 20px; font-size: 10px; font-weight: 600; cursor: pointer; letter-spacing: 1px;" onclick="this.style.backgroundColor='#555'">HOJE</button>
+                        <button style="background-color: #888; color: #fff; border: none; padding: 8px 20px; font-size: 10px; font-weight: 600; cursor: pointer; letter-spacing: 1px;" onclick="this.style.backgroundColor='#555'">ONTEM</button>
+                        <button style="background-color: #888; color: #fff; border: none; padding: 8px 20px; font-size: 10px; font-weight: 600; cursor: pointer; letter-spacing: 1px;" onclick="this.style.backgroundColor='#555'">7 DIAS</button>
+                        <button style="background-color: #888; color: #fff; border: none; padding: 8px 20px; font-size: 10px; font-weight: 600; cursor: pointer; letter-spacing: 1px;" onclick="this.style.backgroundColor='#555'">INTERVALO PERSONALIZADO</button>
+                    </div>
+                    
+                    <!-- Grid de Cards de Estatísticas -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px;">
+                        
+                        <!-- Card 1 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">152</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">CONVERSAS<br>EM ANDAMENTO</div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">35</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">AGUARDANDO<br>RESPOSTA</div>
+                        </div>
+                        
+                        <!-- Card 3 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">85</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">ATENDIMENTO<br>CHATBOT</div>
+                        </div>
+                        
+                        <!-- Card 4 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">80</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">ATENDIMENTO<br>RESOLVIDO I.A</div>
+                        </div>
+                        
+                        <!-- Card 5 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">67</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">ATENDIMENTO<br>HUMANO</div>
+                        </div>
+                        
+                        <!-- Card 6 -->
+                        <div style="background-color: #c0c0c0; padding: 25px 15px; text-align: center;">
+                            <div style="font-size: 36px; font-weight: 700; color: #000; margin-bottom: 8px;">72</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px; line-height: 1.4;">ATENDIMENTO<br>RESOLVIDO HUMANO</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Ranking de Usuários -->
+                <div style="background-color: #e8e8e8; padding: 25px; margin-top: 20px; border-radius: 0px;">
+                    <h3 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #000; text-align: center; letter-spacing: 2px;">RANKING USUÁRIOS</h3>
+                    <p style="margin: 0 0 20px 0; font-size: 10px; color: #666; text-align: center; letter-spacing: 1px;">CONVERSAS RESOLVIDAS</p>
+                    
+                    <!-- Cards de Ranking -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                        
+                        <div style="background-color: #c0c0c0; padding: 20px 15px; text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 8px;">32</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px;">USUÁRIO</div>
+                        </div>
+                        
+                        <div style="background-color: #c0c0c0; padding: 20px 15px; text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 8px;">25</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px;">USUÁRIO</div>
+                        </div>
+                        
+                        <div style="background-color: #c0c0c0; padding: 20px 15px; text-align: center;">
+                            <div style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 8px;">15</div>
+                            <div style="font-size: 9px; font-weight: 600; color: #000; letter-spacing: 0.5px;">USUÁRIO</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <button style="background-color: #000; color: #fff; border: none; padding: 15px 20px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1.5px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">SAIR</button>
+                    
+                    <button style="background-color: #000; color: #fff; border: none; padding: 15px 20px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1.5px; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#333'" onmouseout="this.style.backgroundColor='#000'">ATENDIMENTO</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
