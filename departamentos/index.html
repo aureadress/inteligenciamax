@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteligência MAX - Departamentos</title>
+  <style>
+    body {font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;}
+    header{text-align:center;padding:40px 20px 10px;}
+    header h1{font-size:48px;font-weight:700;color:#000;letter-spacing:3px;margin:0;}
+    header .subtitle{font-size:14px;font-weight:300;letter-spacing:2px;color:#333;margin-bottom:8px;}
+    .back-btn{display:inline-flex;align-items:center;background:#000;color:#fff;text-decoration:none;padding:12px 25px;font-size:12px;font-weight:600;letter-spacing:1px;margin:0 auto 30px 80px;transition:background .3s;}
+    .back-btn:hover{background:#333;}
+    .container{max-width:1100px;margin:0 auto;background:#fff;padding:30px 40px;box-shadow:0 0 10px rgba(0,0,0,.1);border-radius:4px;position:relative;}
+    h2{text-align:center;font-size:18px;font-weight:700;letter-spacing:1px;color:#000;margin-bottom:25px;}
+    .actions{display:flex;justify-content:flex-end;margin-bottom:20px;}
+    .actions button{background:#000;color:#fff;border:none;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:background .3s;}
+    .actions button:hover{background:#333;}
+    table{width:100%;border-collapse:collapse;}
+    thead{background:#e8e8e8;}
+    th,td{text-align:left;padding:12px 15px;border-bottom:1px solid #ddd;font-size:13px;}
+    th{font-weight:700;color:#000;letter-spacing:1px;}
+    tr:hover{background:#f9f9f9;}
+    .menu-btn{cursor:pointer;font-weight:700;font-size:16px;}
+    .menu-popup{position:absolute;background:#fff;border:1px solid #ccc;box-shadow:0 2px 6px rgba(0,0,0,.15);border-radius:4px;display:none;flex-direction:column;}
+    .menu-popup button{background:none;border:none;padding:8px 16px;text-align:left;font-size:13px;cursor:pointer;}
+    .menu-popup button:hover{background:#f5f5f5;}
+    /* modal */
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;z-index:10;}
+    .modal-content{background:#fff;padding:30px;width:380px;border-radius:6px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+    .modal h3{margin-top:0;font-size:18px;font-weight:700;color:#000;text-align:center;margin-bottom:20px;}
+    .modal label{font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;}
+    .modal input{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;margin-bottom:15px;font-size:13px;}
+    .modal-buttons{display:flex;justify-content:space-between;}
+    .modal-buttons button{flex:1;margin:5px;border:none;padding:10px;font-weight:600;cursor:pointer;}
+    .cancel-btn{background:#ccc;color:#000;}
+    .save-btn{background:#000;color:#fff;}
+    .save-btn:hover{background:#333;}
+    footer{text-align:center;font-size:11px;color:#666;padding:20px;margin-top:40px;border-top:1px solid #e0e0e0;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="subtitle">INTELIGÊNCIA</div>
+    <h1>MAX</h1>
+  </header>
+
+  <a href="../painel" class="back-btn"><span style="margin-right:8px;">←</span> VOLTAR AO PAINEL</a>
+
+  <div class="container">
+    <h2>DEPARTAMENTOS CADASTRADOS</h2>
+    <div class="actions">
+      <button>ADICIONAR NOVO DEPARTAMENTO</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Departamento</th><th>Responsável</th><th>Status</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td><td>Vendas</td><td>Marcos Oliveira</td><td style="color:green;font-weight:600;">Ativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+        <tr>
+          <td>002</td><td>Pós-Venda</td><td>Claudia Ramos</td><td style="color:green;font-weight:600;">Ativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+        <tr>
+          <td>003</td><td>Trocas e Devoluções</td><td>Marcia Silva</td><td style="color:green;font-weight:600;">Ativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+        <tr>
+          <td>004</td><td>Financeiro</td><td>João Pereira</td><td style="color:green;font-weight:600;">Ativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+        <tr>
+          <td>005</td><td>Marketing</td><td>Ana Souza</td><td style="color:green;font-weight:600;">Ativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+        <tr>
+          <td>006</td><td>Fornecedores</td><td>Fernanda Lima</td><td style="color:red;font-weight:600;">Inativo</td>
+          <td><span class="menu-btn" onclick="openMenu(event)">⋮</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- popup menu -->
+    <div id="menu" class="menu-popup">
+      <button onclick="editItem()">Editar</button>
+      <button onclick="deleteItem()">Apagar</button>
+    </div>
+  </div>
+
+  <!-- modal edição -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3>Editar Departamento</h3>
+      <label>Nome do Departamento</label>
+      <input type="text" id="depNome" placeholder="Ex: Vendas">
+      <label>Descrição (opcional)</label>
+      <input type="text" id="depDesc" placeholder="Descrição curta...">
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
+        <button class="save-btn" onclick="saveEdit()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Inteligência MAX © 2025 — Todos os direitos reservados.</footer>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const modal = document.getElementById('modal');
+    let currentRow = null;
+
+    function openMenu(event){
+      const rect = event.target.getBoundingClientRect();
+      menu.style.top = rect.bottom + window.scrollY + 'px';
+      menu.style.left = rect.left - 60 + 'px';
+      menu.style.display = 'flex';
+      currentRow = event.target.closest('tr');
+      document.addEventListener('click', closeMenuOutside);
+    }
+
+    function closeMenuOutside(e){
+      if(!menu.contains(e.target)){
+        menu.style.display='none';
+        document.removeEventListener('click', closeMenuOutside);
+      }
+    }
+
+    function editItem(){
+      menu.style.display='none';
+      const nome = currentRow.children[1].innerText;
+      const desc = currentRow.children[2].innerText;
+      document.getElementById('depNome').value = nome;
+      document.getElementById('depDesc').value = desc;
+      modal.style.display='flex';
+    }
+
+    function deleteItem(){
+      menu.style.display='none';
+      if(confirm('Deseja realmente apagar este departamento?')){
+        currentRow.remove();
+      }
+    }
+
+    function closeModal(){
+      modal.style.display='none';
+    }
+
+    function saveEdit(){
+      const nome = document.getElementById('depNome').value;
+      const desc = document.getElementById('depDesc').value;
+      currentRow.children[1].innerText = nome;
+      currentRow.children[2].innerText = desc;
+      modal.style.display='none';
+      alert('Departamento atualizado com sucesso!');
+    }
+  </script>
+</body>
+</html>
