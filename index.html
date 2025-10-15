@@ -4,34 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Inteligência MAX</title>
-</head>
-<body style="margin:0; padding:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#ffffff; font-family:Segoe UI, Arial, sans-serif;">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffffff;
+      font-family: Segoe UI, Arial, sans-serif;
+    }
 
-  <div style="background:#bdbdbd; width:400px; padding:40px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.1);">
-    
-    <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/ee59bb55bef359505f1af8aee58fb20a2aa4195c/Logo%20MAX.svg"
-         alt="Inteligência MAX"
-         style="width:180px; height:auto; margin-bottom:30px;">
+    .login-container {
+      background: #bdbdbd;
+      width: 400px;
+      padding: 24px 40px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .logo-wrapper {
+      height: 120px; /* Ajuste conforme necessário */
+      width: 320px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 24px auto;
+    }
+
+    .login-logo {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin: 0;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #fff;
+      background: #fff;
+      font-size: 14px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .password-wrapper {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .password-wrapper button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .login-button {
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-button:hover {
+      background: #222;
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .forgot a {
+      font-size: 11px;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .forgot a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo-wrapper">
+      <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/ee59bb55bef359505f1af8aee58fb20a2aa4195c/Logo%20MAX.svg"
+           alt="Inteligência MAX"
+           class="login-logo">
+    </div>
 
     <form onsubmit="event.preventDefault(); alert('Login em desenvolvimento!');">
-      <input type="email" placeholder="Digite seu email" required
-             style="width:100%; padding:10px; margin-bottom:12px; border:1px solid #fff; background:#fff; font-size:13px; outline:none;">
-      
-      <div style="position:relative; margin-bottom:12px;">
-        <input type="password" id="senha" placeholder="Digite sua senha" required
-               style="width:100%; padding:10px; border:1px solid #fff; background:#fff; font-size:13px; outline:none;">
-        <button type="button" onclick="toggleSenha()" 
-                style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:16px;">👁</button>
+      <input type="email" placeholder="Digite seu email" required class="login-input">
+
+      <div class="password-wrapper">
+        <input type="password" id="senha" placeholder="Digite sua senha" required class="login-input">
+        <button type="button" onclick="toggleSenha()">👁</button>
       </div>
-      
-      <button type="submit"
-              style="width:100%; background:#000; color:#fff; border:none; padding:10px; font-size:16px; cursor:pointer; margin-top:5px;">
-        Fazer login
-      </button>
+
+      <button type="submit" class="login-button">Fazer login</button>
     </form>
 
-    <div style="text-align:right; margin-top:8px;">
-      <a href="#" style="font-size:11px; color:#000; text-decoration:none;">Esqueceu sua senha?</a>
+    <div class="forgot">
+      <a href="#">Esqueceu sua senha?</a>
     </div>
   </div>
 
