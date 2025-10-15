@@ -1,75 +1,1140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atendimento - Inteligência MAX</title>
-  <link rel="stylesheet" href="atendimento.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InteligênciaMAX - Atendimento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e Configurações Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background-color: #e5e5e5;
+            overflow: hidden;
+        }
+
+        /* Container Principal */
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* ========== SIDEBAR ESQUERDA ========== */
+        .sidebar-left {
+            width: 340px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #d0d0d0;
+        }
+
+        .sidebar-header {
+            background-color: #e8e8e8;
+            padding: 15px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 3px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .logo-bold {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 15px;
+        }
+
+        .search-box i {
+            color: #999;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .tab-btn.active {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto;
+            background-color: white;
+        }
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e8e8e8;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .conversation-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .conversation-item.active {
+            background-color: #e8e8e8;
+        }
+
+        .conversation-item .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .conversation-item .avatar i {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .conversation-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-number {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 3px;
+            color: #333;
+        }
+
+        .conversation-preview {
+            font-size: 13px;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-time {
+            font-size: 12px;
+            color: #999;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+            background-color: #e8e8e8;
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .settings-btn,
+        .user-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #999;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .settings-btn:hover,
+        .user-btn:hover {
+            background-color: #777;
+        }
+
+        .settings-btn i,
+        .user-btn i {
+            color: white;
+            font-size: 18px;
+        }
+
+        /* ========== ÁREA CENTRAL - CHAT ========== */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .chat-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-contact i {
+            font-size: 28px;
+            color: #999;
+        }
+
+        .chat-contact span {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .icon-btn i {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            background-color: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            max-width: 60%;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.customer {
+            margin-right: auto;
+        }
+
+        .message.bot {
+            margin-left: auto;
+        }
+
+        .message p {
+            padding: 12px 16px;
+            border-radius: 8px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .message.customer p {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        .message.bot p {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .chat-input-area {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #fff;
+            border-top: 1px solid #d0d0d0;
+            gap: 10px;
+        }
+
+        .attach-btn,
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .attach-btn:hover,
+        .send-btn:hover {
+            background-color: #000;
+        }
+
+        .attach-btn i,
+        .send-btn i {
+            font-size: 16px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #d0d0d0;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .message-input:focus {
+            border-color: #999;
+        }
+
+        .message-input::placeholder {
+            color: #999;
+        }
+
+        /* ========== SIDEBAR DIREITA ========== */
+        .sidebar-right {
+            width: 360px;
+            background-color: #f5f5f5;
+            border-left: 1px solid #d0d0d0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .customer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #e8e8e8;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .header-title {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .expand-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expand-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .expand-btn i {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .customer-info {
+            padding: 20px;
+            background-color: white;
+            margin: 15px;
+            border-radius: 4px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .view-order-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #999;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .view-order-btn:hover {
+            background-color: #777;
+        }
+
+        .help-section {
+            margin: 15px;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .help-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: #333;
+            color: white;
+            border-radius: 4px 4px 0 0;
+            gap: 10px;
+        }
+
+        .help-header span:first-child {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-max {
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .help-header .expand-btn i {
+            color: white;
+        }
+
+        .help-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .help-box {
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .help-box.atendente {
+            background-color: #f0f0f0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .help-box.max {
+            background-color: #f9f9f9;
+            border: 1px solid #e5e5e5;
+        }
+
+        .help-title {
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .help-box p {
+            color: #333;
+            margin: 0;
+        }
+
+        .help-input-area {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+            gap: 10px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .help-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #d0d0d0;
+            border-radius: 20px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .help-input:focus {
+            border-color: #999;
+        }
+
+        .help-input::placeholder {
+            color: #999;
+        }
+
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bbb;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        /* ========== RESPONSIVIDADE ========== */
+        @media (max-width: 1200px) {
+            .sidebar-right {
+                width: 320px;
+            }
+            
+            .sidebar-left {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar-right {
+                position: absolute;
+                right: -360px;
+                height: 100%;
+                z-index: 10;
+                transition: right 0.3s ease;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .sidebar-right.show {
+                right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-left {
+                position: absolute;
+                left: -340px;
+                height: 100%;
+                z-index: 10;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .sidebar-left.show {
+                left: 0;
+            }
+            
+            .chat-messages {
+                padding: 20px;
+            }
+            
+            .message {
+                max-width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-messages {
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .chat-input-area {
+                padding: 10px;
+            }
+            
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Sidebar Esquerda -->
-  <aside class="sidebar-left">
-    <div class="sidebar-header">
-      <div class="logo-header">
-        <span class="logo-text">INTELIGÊNCIA</span>
-        <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-          <text x="30" y="22" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#000">MAX</text>
-          <line x1="8" y1="15" x2="52" y2="12" stroke="#000" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
+    <!-- Container Principal -->
+    <div class="container">
+        <!-- Sidebar Esquerda - Lista de Conversas -->
+        <aside class="sidebar-left">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-text">INTELIGÊNCIA</span><span class="logo-bold">MAX</span>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar na conversa">
+                </div>
+                <div class="filter-tabs">
+                    <button class="tab-btn active">TUDO</button>
+                    <button class="tab-btn">NÃO LIDAS</button>
+                    <button class="tab-btn">ETIQUETAS</button>
+                    <button class="tab-btn">AGENDADAS</button>
+                </div>
+            </div>
+            
+            <div class="conversations-list">
+                <div class="conversation-item active">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-number">011996225545</div>
+                        <div class="conversation-preview">Quero comprar este vest...</div>
+                    </div>
+                    <div class="conversation-time">17:01</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button class="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="user-btn">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Área Central - Chat -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <div class="chat-contact">
+                    <i class="fas fa-user-circle"></i>
+                    <span>011 99622 5315</span>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="icon-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message customer">
+                    <p>Comprei um vestido, ele chegou mas não serviu, quero devolver, no site não encontrei opção, pode me ajudar?</p>
+                </div>
+
+                <div class="message bot">
+                    <p>Poxa, que pena que não serviu 😔 Mas fica tranquila, vamos resolver! Me passa o CPF e o número do pedido pra eu verificar sua devolução certinho.</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <button class="attach-btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <input type="text" placeholder="Digite sua mensagem" class="message-input">
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </main>
+
+        <!-- Sidebar Direita - Informações do Cliente -->
+        <aside class="sidebar-right">
+            <div class="customer-header">
+                <div class="header-title">LOJA</div>
+                <button class="expand-btn">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+
+            <div class="customer-info">
+                <div class="info-item">
+                    <span class="info-label">Celular:</span>
+                    <span class="info-value">011 99622 5315</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nome:</span>
+                    <span class="info-value">Marcia Silva Dantas</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">CPF:</span>
+                    <span class="info-value">354.4587.025-96</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Pedido nº:</span>
+                    <span class="info-value">17987495566155</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Data:</span>
+                    <span class="info-value">19/09/2025</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Rastreio:</span>
+                    <span class="info-value">BR06462303CN</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Previsão de Entrega:</span>
+                    <span class="info-value">25/09/2025</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Entrega realizada em:</span>
+                    <span class="info-value">24/09/2025</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Valor do pedido:</span>
+                    <span class="info-value">R$ 1.200,00</span>
+                </div>
+                
+                <button class="view-order-btn">VER PEDIDO</button>
+            </div>
+
+            <div class="help-section">
+                <div class="help-header">
+                    <span>AJUDA</span>
+                    <span class="logo-max">MAX</span>
+                    <button class="expand-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+                
+                <div class="help-content">
+                    <div class="help-box atendente">
+                        <div class="help-title">ATENDENTE</div>
+                        <p>gere uma resposta dizendo que o cliente precisa entrar no ar e fazer a solicitação da devolução</p>
+                    </div>
+                    
+                    <div class="help-box max">
+                        <div class="help-title">MAX</div>
+                        <p>Verifique seu pedido e o prazo de 7 dias para trocar ou devolver o produto. Gostaríamos muito de ajudar, mas infelizmente, este pedido não permite mais abrir solicitação.</p>
+                    </div>
+                </div>
+
+                <div class="help-input-area">
+                    <button class="attach-btn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <input type="text" placeholder="Peça sua mensagem" class="help-input">
+                    <button class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <div class="search-box">
-      <input type="text" placeholder="Pesquisar conversas">
-    </div>
+    <script>
+        // InteligênciaMAX - Sistema de Atendimento
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
 
-    <div class="filter-tabs">
-      <button class="filter-tab active">TUDO</button>
-      <button class="filter-tab">NÃO LIDAS</button>
-      <button class="filter-tab">ETIQUETAS</button>
-      <button class="filter-tab">AGENDADAS</button>
-    </div>
+        function initializeApp() {
+            setupConversationList();
+            setupMessageInput();
+            setupHelpInput();
+            setupFilterTabs();
+            setupButtons();
+        }
 
-    <div class="conversations-list">
-      <div class="conversation-item active">
-        <div class="conversation-info">
-          <div class="conversation-number">011996225545</div>
-          <div class="conversation-preview">Quero comprar... este vest...</div>
-        </div>
-        <div class="conversation-time">11:21</div>
-      </div>
-    </div>
+        function setupConversationList() {
+            const conversationItems = document.querySelectorAll('.conversation-item');
+            
+            conversationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    conversationItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    loadConversation(this);
+                });
+            });
+        }
 
-    <div class="sidebar-footer">
-      <button class="user-btn" onclick="window.location.href='../painel'">⬅ Voltar</button>
-    </div>
-  </aside>
+        function loadConversation(item) {
+            const number = item.querySelector('.conversation-number').textContent;
+            console.log('Carregando conversa:', number);
+        }
 
-  <!-- Área Central -->
-  <main class="chat-area">
-    <div class="chat-header">
-      <div class="chat-contact">011 99622 5315</div>
-    </div>
+        function setupMessageInput() {
+            const messageInput = document.querySelector('.message-input');
+            const sendBtn = document.querySelector('.chat-input-area .send-btn');
+            const attachBtn = document.querySelector('.chat-input-area .attach-btn');
+            
+            sendBtn.addEventListener('click', function() {
+                sendMessage(messageInput);
+            });
+            
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage(messageInput);
+                }
+            });
+            
+            attachBtn.addEventListener('click', function() {
+                console.log('Abrir seletor de arquivo');
+            });
+        }
 
-    <div class="chat-messages">
-      <div class="message customer">
-        <div class="message-bubble">
-          Comprei um vestido, ele chegou mas não serviu. Quero devolver.
-        </div>
-      </div>
-      <div class="message assistant">
-        <div class="message-bubble">
-          Claro! Me passa seu CPF e número do pedido pra eu verificar a devolução.
-        </div>
-      </div>
-    </div>
+        function sendMessage(input) {
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            addMessageToChat(message, 'customer');
+            input.value = '';
+            
+            setTimeout(() => {
+                simulateAutoResponse();
+            }, 1000);
+        }
 
-    <div class="chat-input-area">
-      <input type="text" placeholder="Digite sua mensagem" id="chatInput">
-      <button onclick="sendMessage()">Enviar</button>
-    </div>
-  </main>
+        function addMessageToChat(text, type = 'customer') {
+            const chatMessages = document.querySelector('.chat-messages');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const messageP = document.createElement('p');
+            messageP.textContent = text;
+            
+            messageDiv.appendChild(messageP);
+            chatMessages.appendChild(messageDiv);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-  <script src="atendimento.js"></script>
+        function simulateAutoResponse() {
+            const responses = [
+                'Obrigado pela sua mensagem! Vou verificar isso para você.',
+                'Entendi! Deixe-me ajudar você com isso.',
+                'Certo, vou processar sua solicitação agora.',
+                'Perfeito! Já estou verificando no sistema.'
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessageToChat(randomResponse, 'bot');
+        }
+
+        function setupHelpInput() {
+            const helpInput = document.querySelector('.help-input');
+            const helpSendBtn = document.querySelector('.help-input-area .send-btn');
+            const helpAttachBtn = document.querySelector('.help-input-area .attach-btn');
+            
+            if (helpSendBtn) {
+                helpSendBtn.addEventListener('click', function() {
+                    sendHelpRequest(helpInput);
+                });
+            }
+            
+            if (helpInput) {
+                helpInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendHelpRequest(helpInput);
+                    }
+                });
+            }
+            
+            if (helpAttachBtn) {
+                helpAttachBtn.addEventListener('click', function() {
+                    console.log('Anexar contexto ou arquivo');
+                });
+            }
+        }
+
+        function sendHelpRequest(input) {
+            const request = input.value.trim();
+            
+            if (request === '') return;
+            
+            console.log('Solicitação de ajuda:', request);
+            
+            const helpContent = document.querySelector('.help-content');
+            const newBox = document.createElement('div');
+            newBox.className = 'help-box atendente';
+            newBox.innerHTML = `<div class="help-title">ATENDENTE</div><p>${request}</p>`;
+            helpContent.appendChild(newBox);
+            
+            input.value = '';
+            
+            setTimeout(() => {
+                generateMaxResponse(request);
+            }, 1500);
+        }
+
+        function generateMaxResponse(request) {
+            const helpContent = document.querySelector('.help-content');
+            const newBox = document.createElement('div');
+            newBox.className = 'help-box max';
+            newBox.innerHTML = `<div class="help-title">MAX</div><p>Baseado na sua solicitação, sugiro responder: "${request}". A resposta foi gerada considerando o contexto da conversa.</p>`;
+            helpContent.appendChild(newBox);
+            
+            helpContent.scrollTop = helpContent.scrollHeight;
+        }
+
+        function setupFilterTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    filterConversations(this.textContent);
+                });
+            });
+        }
+
+        function filterConversations(filter) {
+            console.log('Filtrando por:', filter);
+        }
+
+        function setupButtons() {
+            const viewOrderBtn = document.querySelector('.view-order-btn');
+            if (viewOrderBtn) {
+                viewOrderBtn.addEventListener('click', function() {
+                    console.log('Abrindo detalhes do pedido');
+                    showOrderDetails();
+                });
+            }
+            
+            const settingsBtn = document.querySelector('.settings-btn');
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', function() {
+                    console.log('Abrindo configurações');
+                });
+            }
+            
+            const userBtn = document.querySelector('.user-btn');
+            if (userBtn) {
+                userBtn.addEventListener('click', function() {
+                    console.log('Abrindo perfil do usuário');
+                });
+            }
+            
+            const expandBtns = document.querySelectorAll('.expand-btn');
+            expandBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('Expandir painel');
+                });
+            });
+        }
+
+        function showOrderDetails() {
+            alert('Detalhes do Pedido:\n\n' +
+                  'Pedido: 17987495566155\n' +
+                  'Cliente: Marcia Silva Dantas\n' +
+                  'Valor: R$ 1.200,00\n' +
+                  'Status: Entregue em 24/09/2025');
+        }
+
+        const searchInput = document.querySelector('.search-box input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filterConversationsBySearch(searchTerm);
+            });
+        }
+
+        function filterConversationsBySearch(term) {
+            const conversations = document.querySelectorAll('.conversation-item');
+            
+            conversations.forEach(conv => {
+                const number = conv.querySelector('.conversation-number').textContent.toLowerCase();
+                const preview = conv.querySelector('.conversation-preview').textContent.toLowerCase();
+                
+                if (number.includes(term) || preview.includes(term)) {
+                    conv.style.display = 'flex';
+                } else {
+                    conv.style.display = 'none';
+                }
+            });
+        }
+
+        console.log('InteligênciaMAX - Sistema inicializado com sucesso!');
+    </script>
 </body>
 </html>
