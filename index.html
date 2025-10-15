@@ -43,7 +43,7 @@
       padding: 12px;
       font-size: 14px;
       box-sizing: border-box;
-      margin-bottom: 9px; /* metade do espaçamento anterior */
+      margin-bottom: 9px;
     }
     .login-input {
       border: 1px solid #fff;
@@ -52,7 +52,7 @@
     }
     .password-wrapper {
       position: relative;
-      margin-bottom: 9px; /* igual aos outros */
+      margin-bottom: 9px;
     }
     .password-toggle-btn {
       position: absolute;
@@ -111,17 +111,17 @@
     <div class="logo-wrapper">
       <img src="Logo%20MAX.svg" alt="Inteligência MAX" class="login-logo">
     </div>
-    <form onsubmit="event.preventDefault(); alert('Login em desenvolvimento!');">
+    
+    <!-- 🚀 Atualização: o botão agora redireciona para atendimento.html -->
+    <form onsubmit="event.preventDefault(); window.location.href='atendimento.html';">
       <input type="email" placeholder="Digite seu email" required class="login-input">
       <div class="password-wrapper">
         <input type="password" id="senha" placeholder="Digite sua senha" required class="login-input" style="margin-bottom:0;">
         <button type="button" class="password-toggle-btn" id="toggleSenhaBtn" aria-label="Mostrar/ocultar senha">
-          <!-- Olho aberto -->
           <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor"/>
             <circle cx="12" cy="12" r="2.5" stroke="currentColor"/>
           </svg>
-          <!-- Olho com risco -->
           <svg id="icon-eye-off" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor"/>
             <circle cx="12" cy="12" r="2.5" stroke="currentColor"/>
@@ -131,6 +131,7 @@
       </div>
       <button type="submit" class="login-button">Fazer login</button>
     </form>
+
     <div class="forgot">
       <a href="#">Esqueceu sua senha?</a>
     </div>
