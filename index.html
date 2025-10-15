@@ -4,33 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Inteligência MAX</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
-<body>
-  <div class="login-box">
-    <!-- Logo MAX -->
-    <svg class="logo-max" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 313 90">
-      <g>
-        <text x="50" y="55" font-family="Arial Black, Arial, sans-serif" font-size="48" font-weight="900" letter-spacing="2" fill="#000">MAX</text>
-        <text x="124" y="35" font-family="Arial" font-size="11" fill="#000" letter-spacing="0.5">INTELIGÊNCIA</text>
-        <line x1="82" y1="18" x2="120" y2="60" stroke="#000" stroke-width="3"/>
-      </g>
-    </svg>
-    <form class="login-form" autocomplete="off">
-      <input type="email" class="form-input" placeholder="Digite seu email" autocomplete="username" required>
-      <div class="password-row">
-        <input type="password" class="form-input" id="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
-        <button type="button" class="show-password" aria-label="Mostrar senha">
-          <svg viewBox="0 0 24 24">
-            <ellipse cx="12" cy="12" rx="9" ry="6" stroke="#888" stroke-width="2" fill="none"/>
-            <circle cx="12" cy="12" r="2.2" fill="#888"/>
-          </svg>
-        </button>
+<body style="margin:0; padding:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#ffffff; font-family:Segoe UI, Arial, sans-serif;">
+
+  <div style="background:#bdbdbd; width:400px; padding:40px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+    
+    <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/ee59bb55bef359505f1af8aee58fb20a2aa4195c/Logo%20MAX.svg"
+         alt="Inteligência MAX"
+         style="width:180px; height:auto; margin-bottom:30px;">
+
+    <form onsubmit="event.preventDefault(); alert('Login em desenvolvimento!');">
+      <input type="email" placeholder="Digite seu email" required
+             style="width:100%; padding:10px; margin-bottom:12px; border:1px solid #fff; background:#fff; font-size:13px; outline:none;">
+      
+      <div style="position:relative; margin-bottom:12px;">
+        <input type="password" id="senha" placeholder="Digite sua senha" required
+               style="width:100%; padding:10px; border:1px solid #fff; background:#fff; font-size:13px; outline:none;">
+        <button type="button" onclick="toggleSenha()" 
+                style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:16px;">👁</button>
       </div>
-      <button type="submit" class="login-btn">Fazer login</button>
+      
+      <button type="submit"
+              style="width:100%; background:#000; color:#fff; border:none; padding:10px; font-size:16px; cursor:pointer; margin-top:5px;">
+        Fazer login
+      </button>
     </form>
-    <a href="#" class="forgot-link">Esqueceu sua senha?</a>
+
+    <div style="text-align:right; margin-top:8px;">
+      <a href="#" style="font-size:11px; color:#000; text-decoration:none;">Esqueceu sua senha?</a>
+    </div>
   </div>
+
+  <script>
+    function toggleSenha() {
+      const senha = document.getElementById('senha');
+      senha.type = senha.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+
 </body>
 </html>
