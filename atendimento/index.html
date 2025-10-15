@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atendimento - Inteligência MAX</title>
+  <link rel="stylesheet" href="atendimento.css">
+</head>
+<body>
+  <!-- Sidebar Esquerda -->
+  <aside class="sidebar-left">
+    <div class="sidebar-header">
+      <div class="logo-header">
+        <span class="logo-text">INTELIGÊNCIA</span>
+        <svg width="60" height="30" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+          <text x="30" y="22" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#000">MAX</text>
+          <line x1="8" y1="15" x2="52" y2="12" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Pesquisar conversas">
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active">TUDO</button>
+      <button class="filter-tab">NÃO LIDAS</button>
+      <button class="filter-tab">ETIQUETAS</button>
+      <button class="filter-tab">AGENDADAS</button>
+    </div>
+
+    <div class="conversations-list">
+      <div class="conversation-item active">
+        <div class="conversation-info">
+          <div class="conversation-number">011996225545</div>
+          <div class="conversation-preview">Quero comprar... este vest...</div>
+        </div>
+        <div class="conversation-time">11:21</div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="user-btn" onclick="window.location.href='../painel'">⬅ Voltar</button>
+    </div>
+  </aside>
+
+  <!-- Área Central -->
+  <main class="chat-area">
+    <div class="chat-header">
+      <div class="chat-contact">011 99622 5315</div>
+    </div>
+
+    <div class="chat-messages">
+      <div class="message customer">
+        <div class="message-bubble">
+          Comprei um vestido, ele chegou mas não serviu. Quero devolver.
+        </div>
+      </div>
+      <div class="message assistant">
+        <div class="message-bubble">
+          Claro! Me passa seu CPF e número do pedido pra eu verificar a devolução.
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" placeholder="Digite sua mensagem" id="chatInput">
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </main>
+
+  <script src="atendimento.js"></script>
+</body>
+</html>
