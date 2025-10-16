@@ -1,117 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conexão WhatsApp - Inteligência MAX</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f2f2f2;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      margin-top: 60px;
-    }
-    header h1 {
-      font-size: 48px;
-      font-weight: 700;
-      margin: 0;
-      letter-spacing: 2px;
-    }
-    header p {
-      font-size: 14px;
-      color: #333;
-      margin: 8px 0 40px;
-    }
-    .card {
-      background-color: #c9c9c9;
-      width: 420px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    .qr-container {
-      background: #fff;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 320px;
-      border-radius: 8px;
-    }
-    .qr-container img {
-      max-width: 100%;
-      height: auto;
-    }
-    .status {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #000;
-      letter-spacing: 0.5px;
-    }
-    .btn-voltar {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 25px;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 1px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .btn-voltar:hover {
-      background: #333;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div style="font-size: 14px; font-weight: 300; letter-spacing: 2px;">INTELIGÊNCIA</div>
-    <h1>MAX</h1>
-    <div style="width: 80px; height: 3px; background-color: #000; margin: 10px auto 0;"></div>
-    <p>Conecte o sistema à sua conta WhatsApp Web</p>
-  </header>
-
-  <div class="card">
-    <div class="qr-container" id="qr">
-      <p>Carregando QR Code...</p>
-    </div>
-    <div class="status" id="status">Aguardando conexão com o servidor</div>
-    <button class="btn-voltar" onclick="window.location.href='../painel'">VOLTAR AO PAINEL</button>
+<div style="text-align:center; margin-top:40px;">
+  <h2>Conecte o sistema ao WhatsApp Web</h2>
+  <div
+    id="qrContainer"
+    style="width:300px;height:300px;margin:20px auto;border:3px solid #ccc;background:#fff;"
+  >
+    <p id="qrText" style="margin-top:120px;color:red;">Carregando...</p>
   </div>
 
-  <script>
-    const qrContainer = document.getElementById('qr');
-    const statusText = document.getElementById('status');
+  <button id="connectBtn">Conectar</button>
+  <button id="disconnectBtn">Desconectar</button>
+  <button id="resetBtn">Resetar Conexão</button>
+</div>
 
-    async function carregarQR() {
-      try {
-        statusText.textContent = 'Conectando ao servidor...';
-        const response = await fetch('https://inteligencia-max-backend-production.up.railway.app/qr');
-        if (!response.ok) throw new Error('Erro ao carregar QR');
-        const blob = await response.blob();
-        const imgURL = URL.createObjectURL(blob);
-        qrContainer.innerHTML = `<img src="${imgURL}" alt="QR Code">`;
-        statusText.textContent = 'Escaneie o QR Code com seu WhatsApp';
-      } catch (error) {
-        qrContainer.innerHTML = `<p style="color:red;">Erro ao carregar QR Code.</p>`;
-        statusText.textContent = 'Falha na conexão. Recarregue a página.';
+<script>
+  const backend = "https://inteligencia-max-backend-production.up.railway.app";
+
+  async function loadQR() {
+    const qrContainer = document.getElementById("qrContainer");
+    const qrText = document.getElementById("qrText");
+    try {
+      const res = await fetch(`${backend}/qr`);
+      if (!res.ok) {
+        qrContainer.innerHTML =
+          "<p style='color:red;margin-top:120px;'>Aguardando QR Code...</p>";
+        return;
       }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      qrContainer.innerHTML = `<img src="${url}" width="300" height="300">`;
+    } catch {
+      qrText.innerText = "Erro ao carregar QR Code.";
     }
+  }
 
-    carregarQR();
-  </script>
-</body>
-</html>
+  document.getElementById("connectBtn").onclick = async () => {
+    await fetch(`${backend}/connect`);
+    loadQR();
+  };
+
+  document.getElementById("disconnectBtn").onclick = async () => {
+    await fetch(`${backend}/disconnect`);
+    alert("Conexão encerrada!");
+  };
+
+  document.getElementById("resetBtn").onclick = async () => {
+    await fetch(`${backend}/reset`);
+    alert("Sessão resetada!");
+    loadQR();
+  };
+
+  setInterval(loadQR, 10000);
+  loadQR();
+</script>
