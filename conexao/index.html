@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Inteligência MAX</title>
+    <title>Conexão WhatsApp - Inteligência MAX</title>
     <style>
         * {
             margin: 0;
@@ -49,6 +49,7 @@
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            border-radius: 4px;
         }
 
         .btn-white {
@@ -74,28 +75,6 @@
             max-width: 1400px;
             margin: 40px auto;
             padding: 0 20px;
-        }
-
-        /* Grid de Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #000;
-            letter-spacing: 1.5px;
         }
 
         /* QR Code Container */
@@ -182,6 +161,7 @@
             padding: 20px;
             background: #fff;
             margin: 20px auto;
+            display: block;
         }
 
         /* Loading Spinner */
@@ -269,6 +249,25 @@
             background: #ccc;
             cursor: not-allowed;
         }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .qr-container {
+                padding: 20px;
+            }
+            
+            .instructions {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -277,7 +276,7 @@
     <div class="header">
         <h1>INTELIGÊNCIA MAX</h1>
         <div class="header-actions">
-            <a href="prompt-ia.html" class="btn btn-white">CONFIGURAÇÕES</a>
+            <a href="../painel/" class="btn btn-white">PAINEL</a>
             <button onclick="logout()" class="btn btn-gray">SAIR</button>
         </div>
     </div>
@@ -333,8 +332,16 @@
         let socket;
         let isConnected = false;
 
+        // Verificar se está logado
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Você precisa fazer login primeiro!');
+            window.location.href = '../login/';
+        }
+
         // Inicializar ao carregar a página
         window.addEventListener('load', function() {
+            console.log('🚀 Iniciando conexão WhatsApp...');
             initializeSocket();
             loadQRCode();
             
@@ -348,6 +355,8 @@
 
         // Inicializar Socket.IO
         function initializeSocket() {
+            console.log('Conectando Socket.IO...');
+            
             socket = io(API_URL, {
                 transports: ['websocket', 'polling'],
                 reconnection: true,
@@ -363,13 +372,11 @@
                 console.log('❌ Socket desconectado');
             });
 
-            // Receber QR Code via Socket
             socket.on('qr-code', (qrCode) => {
                 console.log('📱 Novo QR Code recebido via Socket');
                 displayQRCode(qrCode);
             });
 
-            // Receber status do WhatsApp
             socket.on('whatsapp-status', (data) => {
                 console.log('📱 Status WhatsApp:', data);
                 if (data.connected) {
@@ -390,8 +397,20 @@
             try {
                 updateStatus('loading', 'Carregando QR Code...');
                 
-                const response = await fetch(`${API_URL}/api/settings/qrcode`);
+                console.log('Buscando QR Code da API...');
+                
+                const response = await fetch(`${API_URL}/api/settings/qrcode`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                console.log('Status da resposta:', response.status);
+                
                 const data = await response.json();
+                console.log('Dados recebidos:', data);
 
                 if (data.connected) {
                     showConnected(data.phone || 'Conectado');
@@ -400,7 +419,7 @@
                     displayQRCode(data.qrCode);
                 } else {
                     updateStatus('loading', 'Aguardando QR Code...');
-                    document.getElementById('qrArea').innerHTML = '<p style="color: #666;">Aguardando geração do QR Code...</p>';
+                    document.getElementById('qrArea').innerHTML = '<p style="color: #666; margin: 20px 0;">Aguardando geração do QR Code...</p>';
                 }
             } catch (error) {
                 console.error('Erro ao carregar QR Code:', error);
@@ -408,7 +427,7 @@
                 document.getElementById('qrArea').innerHTML = `
                     <p style="color: #dc3545; margin: 20px 0;">
                         ❌ Erro ao conectar com o servidor.<br>
-                        Verifique se o backend está online.
+                        <small>Verifique se o backend está online.</small>
                     </p>
                 `;
             } finally {
@@ -418,6 +437,7 @@
 
         // Exibir QR Code
         function displayQRCode(qrCodeData) {
+            console.log('Exibindo QR Code...');
             updateStatus('disconnected', 'Aguardando escaneamento');
             document.getElementById('qrArea').innerHTML = `
                 <img src="${qrCodeData}" alt="QR Code" class="qr-image">
@@ -426,6 +446,7 @@
 
         // Mostrar conectado
         function showConnected(phone) {
+            console.log('WhatsApp conectado:', phone);
             updateStatus('connected', `WhatsApp Conectado: ${phone}`);
             document.getElementById('qrArea').innerHTML = `
                 <div class="success-icon">✓</div>
@@ -448,13 +469,8 @@
             if (confirm('Deseja realmente sair?')) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
-                window.location.href = 'index.html';
+                window.location.href = '../login/';
             }
-        }
-
-        // Verificar autenticação
-        if (!localStorage.getItem('token')) {
-            window.location.href = 'index.html';
         }
     </script>
 
