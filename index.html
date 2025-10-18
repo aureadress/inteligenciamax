@@ -1,3 +1,76 @@
-    <div class="logo-wrapper">
-      <img src="../Logo%20MAX.svg" alt="Inteligência MAX" class="login-logo">
-    </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteligência MAX - Início</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+    }
+
+    .logo {
+      width: 260px;
+      height: auto;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 240px;
+    }
+
+    .btn {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 4px;
+    }
+
+    .btn-login {
+      background: #000;
+      color: #fff;
+    }
+
+    .btn-login:hover {
+      background: #333;
+    }
+
+    .btn-register {
+      background: #bdbdbd;
+      color: #000;
+    }
+
+    .btn-register:hover {
+      background: #a0a0a0;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="Logo%20MAX.svg" alt="Inteligência MAX" class="logo">
+
+  <div class="buttons">
+    <button class="btn btn-register" onclick="window.location.href='usuarios/register/'">
+      Criar Conta
+    </button>
+    <button class="btn btn-login" onclick="window.location.href='login/'">
+      Fazer Login
+    </button>
+  </div>
+
+</body>
+</html>
