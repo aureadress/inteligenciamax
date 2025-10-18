@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inteligência MAX</title>
-
-  <!-- Fonte Jost -->
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
     html, body {
       margin: 0;
@@ -19,7 +15,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      font-family: 'Jost', sans-serif;
     }
 
     .container {
@@ -31,48 +26,33 @@
       align-items: center;
     }
 
-    /* SVG principal */
+    /* SVG exatamente como está no GitHub */
     .svg-bg {
-      width: 70%;
-      max-width: 950px;
+      width: 80%;
+      max-width: 1100px;
       height: auto;
       object-fit: contain;
       user-select: none;
       -webkit-user-drag: none;
     }
 
-    /* Botão LOGIN (igual ao do layout Corel) */
-    .btn-login {
+    /* Área invisível de clique sobre o botão do SVG */
+    .login-area {
       position: absolute;
-      bottom: 23.5%; /* posição milimétrica abaixo do retângulo das marcas */
-      background-color: #000;
-      color: #fff;
-      border: none;
-      padding: 6px 32px; /* tamanho proporcional */
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      border-radius: 2px;
+      width: 130px;
+      height: 40px;
+      bottom: 23.8%; /* alinhado exatamente onde está o botão preto */
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     }
 
-    .btn-login:hover {
-      background-color: #777;
-      color: #fff;
-    }
-
-    /* Responsivo para telas menores */
     @media (max-width: 768px) {
       .svg-bg {
-        width: 90%;
+        width: 95%;
       }
-
-      .btn-login {
+      .login-area {
         bottom: 26%;
-        font-size: 13px;
-        padding: 5px 26px;
+        width: 110px;
+        height: 36px;
       }
     }
   </style>
@@ -80,18 +60,16 @@
 <body>
 
   <div class="container">
-    <!-- SVG original -->
+    <!-- SVG original hospedado no GitHub -->
     <img
-      src="https://raw.githubusercontent.com/aureadress/inteligenciamax/1fc4e9893ebe371c88a45934abe3bbdd927f9bb7/Pagina%20inicial.svg"
+      src="https://raw.githubusercontent.com/aureadress/inteligenciamax/88cc4db0d2e6e8ae9b88dbd8df53916a048a6327/Pagina%20inicial.svg"
       alt="Inteligência MAX"
       class="svg-bg"
       draggable="false"
     />
 
-    <!-- Botão real -->
-    <button class="btn-login" onclick="window.location.href='login/'">
-      LOGIN
-    </button>
+    <!-- Área clicável transparente sobre o botão existente -->
+    <div class="login-area" onclick="window.location.href='login/'"></div>
   </div>
 
 </body>
