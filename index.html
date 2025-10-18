@@ -28,31 +28,33 @@
       height: 100%;
     }
 
-    /* A imagem SVG */
+    /* Imagem SVG principal */
     .svg-bg {
       width: 70%;
       max-width: 1000px;
       height: auto;
       object-fit: contain;
       transition: transform 0.3s ease;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .svg-bg:hover {
       transform: scale(1.02);
     }
 
-    /* Área clicável apenas no botão */
+    /* Botão invisível na área do botão "LOGIN" do SVG */
     .login-btn {
       position: absolute;
-      bottom: 19%;
-      width: 160px;
-      height: 45px;
+      bottom: 18%;
+      width: 170px;
+      height: 50px;
       background: transparent;
       border: none;
       cursor: pointer;
     }
 
-    /* Centralizar botão exatamente onde está no SVG */
+    /* Responsividade */
     @media (max-width: 768px) {
       .svg-bg {
         width: 90%;
@@ -60,7 +62,7 @@
       .login-btn {
         bottom: 21%;
         width: 140px;
-        height: 40px;
+        height: 45px;
       }
     }
   </style>
@@ -68,15 +70,15 @@
 <body>
 
   <div class="container">
-    <!-- SVG original hospedado -->
+    <!-- SVG hospedado no GitHub -->
     <img
-      src="https://raw.githubusercontent.com/aureadress/inteligenciamax/800a51e5ad1bff9256636198169aa9ce8ca37a02/Pagina%20inicial.svg"
+      src="https://raw.githubusercontent.com/aureadress/inteligenciamax/1fc4e9893ebe371c88a45934abe3bbdd927f9bb7/Pagina%20inicial.svg"
       alt="Inteligência MAX"
       class="svg-bg"
       draggable="false"
     />
 
-    <!-- Botão invisível posicionado sobre o botão "LOGIN" do SVG -->
+    <!-- Área clicável no botão LOGIN -->
     <button
       class="login-btn"
       aria-label="Ir para Login"
