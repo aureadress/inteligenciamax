@@ -115,11 +115,11 @@
 
     <div class="error-message" id="errorMessage"></div>
 
-    <form id="loginForm">
-      <input type="email" id="emailInput" placeholder="Digite seu email" required class="login-input" autocomplete="email">
+    <form class="login-form">
+      <input type="email" id="email" placeholder="Digite seu email" required class="login-input" autocomplete="email">
       <div class="password-wrapper">
-        <input type="password" id="senhaInput" placeholder="Digite sua senha" required class="login-input" autocomplete="current-password">
-        <button type="button" class="password-toggle-btn" id="toggleSenhaBtn" aria-label="Mostrar/ocultar senha">
+        <input type="password" id="senha" placeholder="Digite sua senha" required class="login-input" autocomplete="current-password">
+        <button type="button" class="show-password" aria-label="Mostrar/ocultar senha">
           <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <ellipse cx="12" cy="12" rx="8" ry="5" stroke="currentColor"/>
             <circle cx="12" cy="12" r="2.5" stroke="currentColor"/>
@@ -131,7 +131,7 @@
           </svg>
         </button>
       </div>
-      <button type="submit" class="login-button" id="loginButton">Fazer login</button>
+      <button type="submit" class="login-button">Fazer login</button>
     </form>
 
     <div class="forgot">
@@ -141,94 +141,71 @@
 
   <script>
     const API_URL = 'https://inteligencia-max-backend-production.up.railway.app';
-    
-    // Toggle mostrar/ocultar senha
-    const senhaInput = document.getElementById('senhaInput');
-    const toggleBtn = document.getElementById('toggleSenhaBtn');
+
+    // Mostrar/Ocultar senha
+    const showPasswordBtn = document.querySelector('.show-password');
+    const passwordInput = document.getElementById('senha');
     const iconEye = document.getElementById('icon-eye');
     const iconEyeOff = document.getElementById('icon-eye-off');
 
-    toggleBtn.addEventListener('click', function() {
-      const isPassword = senhaInput.type === 'password';
-      senhaInput.type = isPassword ? 'text' : 'password';
-      iconEye.style.display = isPassword ? 'none' : 'inline';
-      iconEyeOff.style.display = isPassword ? 'inline' : 'none';
+    showPasswordBtn.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        iconEye.style.display = 'none';
+        iconEyeOff.style.display = 'inline';
+      } else {
+        passwordInput.type = 'password';
+        iconEye.style.display = 'inline';
+        iconEyeOff.style.display = 'none';
+      }
     });
 
-    // Processar login
-    const loginForm = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('errorMessage');
-    const loginButton = document.getElementById('loginButton');
-    const emailInput = document.getElementById('emailInput');
+    // Processar login REAL com backend
+    const loginForm = document.querySelector('.login-form');
 
     loginForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const email = emailInput.value.trim();
-      const senha = senhaInput.value;
+      const email = document.getElementById('email').value.trim();
+      const senha = passwordInput.value.trim();
       
-      // Validação básica
       if (!email || !senha) {
-        showError('Por favor, preencha todos os campos');
+        alert('⚠️ Por favor, preencha todos os campos.');
         return;
       }
-      
-      // Desabilitar botão
-      loginButton.disabled = true;
-      loginButton.textContent = 'ENTRANDO...';
-      errorMessage.style.display = 'none';
-      
+
+      const btn = loginForm.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Entrando...';
+
       try {
-        console.log('Tentando login com:', email);
-        
         const response = await fetch(`${API_URL}/api/auth/login`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: email,
-            password: senha
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: senha })
         });
-        
+
         const data = await response.json();
-        console.log('Resposta do servidor:', data);
-        
+        console.log('📦 Resposta do servidor:', data);
+
         if (response.ok && data.success) {
-          // Salvar token e dados do usuário
-          localStorage.setItem('token', data.data.token);
-          localStorage.setItem('user', JSON.stringify(data.data.user));
-          
-          console.log('Login bem-sucedido! Redirecionando...');
-          
-          // Redirecionar para o painel
-          window.location.href = '../painel/';
-          
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+
+          alert('✅ Login realizado com sucesso!');
+          window.location.href = '/painel/';
         } else {
-          throw new Error(data.message || 'Credenciais inválidas');
+          alert(`❌ ${data.message || 'E-mail ou senha incorretos.'}`);
         }
-        
-      } catch (error) {
-        console.error('Erro no login:', error);
-        showError(error.message || 'Erro ao conectar com o servidor. Verifique sua conexão.');
-        loginButton.disabled = false;
-        loginButton.textContent = 'Fazer login';
+
+      } catch (err) {
+        console.error('Erro no login:', err);
+        alert('❌ Erro ao conectar com o servidor. Tente novamente mais tarde.');
       }
-    });
 
-    function showError(message) {
-      errorMessage.textContent = message;
-      errorMessage.style.display = 'block';
-    }
-
-    // Limpar mensagem de erro ao digitar
-    emailInput.addEventListener('input', () => {
-      errorMessage.style.display = 'none';
-    });
-    
-    senhaInput.addEventListener('input', () => {
-      errorMessage.style.display = 'none';
+      btn.disabled = false;
+      btn.textContent = originalText;
     });
   </script>
 
