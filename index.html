@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteligência MAX</title>
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- SVG original -->
+    <img src="images/Pagina-inicial.svg" alt="Inteligência MAX" class="svg-bg" draggable="false" />
+
+    <!-- Botão LOGIN -->
+    <button id="loginBtn" class="btn-login">LOGIN</button>
+  </div>
+
+  <!-- Script principal -->
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginBtn.classList.add('loading');
+        loginBtn.textContent = 'CARREGANDO...';
+        setTimeout(() => {
+          window.location.href = 'https://inteligenciamax.com.br/login/';
+        }, 1000);
+      });
+
+      document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !loginBtn.classList.contains('loading')) {
+          window.location.href = 'https://inteligenciamax.com.br/login/';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
