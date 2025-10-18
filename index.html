@@ -23,7 +23,7 @@
       background: #fff;
       font-family: 'Jost', sans-serif;
       overflow: hidden;
-      border: 8px solid #000; /* borda preta igual à da imagem */
+      border: 8px solid #000; /* borda preta igual à imagem */
     }
 
     .content {
@@ -46,7 +46,7 @@
     .subtitle {
       font-size: 13px;
       color: #000;
-      margin-top: -15px;
+      margin-top: -10px;
     }
 
     .brands {
@@ -61,13 +61,22 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .brands img {
-      height: 45px;
-      width: auto;
+    .brand-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px; /* largura fixa para equalizar visualmente */
+      height: 45px; /* mesma altura para todos */
+    }
+
+    .brand-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
       transition: transform 0.3s ease;
     }
 
-    .brands img:hover {
+    .brand-logo img:hover {
       transform: scale(1.05);
     }
 
@@ -101,7 +110,8 @@
         padding: 30px 40px;
       }
 
-      .brands img {
+      .brand-logo {
+        width: 130px;
         height: 40px;
       }
 
@@ -117,9 +127,15 @@
     <p class="subtitle">Plataforma de uso exclusivo do Grupo Aurea</p>
 
     <div class="brands">
-      <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Aurea%20Logo%20Corel%20SITE%20745x165px%20NEW.svg" alt="Aurea Logo">
-      <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Logotipo-VF-%20Black.svg" alt="Vestido de Festa Logo">
-      <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Aurea%20Fine.png" alt="Aurea Fine Logo">
+      <div class="brand-logo">
+        <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Aurea%20Logo%20Corel%20SITE%20745x165px%20NEW.svg" alt="Aurea Logo">
+      </div>
+      <div class="brand-logo">
+        <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Logotipo-VF-%20Black.svg" alt="Vestido de Festa Logo">
+      </div>
+      <div class="brand-logo">
+        <img src="https://raw.githubusercontent.com/aureadress/inteligenciamax/main/Aurea%20Fine.png" alt="Aurea Fine Logo">
+      </div>
     </div>
 
     <button id="loginBtn">LOGIN</button>
