@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inteligência MAX - Início</title>
+  <title>Inteligência MAX</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -19,58 +23,53 @@
     }
 
     .logo {
-      width: 260px;
+      width: 280px;
+      max-width: 80%;
       height: auto;
       margin-bottom: 40px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 240px;
-    }
-
-    .btn {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-      border-radius: 4px;
     }
 
     .btn-login {
       background: #000;
       color: #fff;
+      border: none;
+      padding: 14px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .btn-login:hover {
       background: #333;
     }
 
-    .btn-register {
-      background: #bdbdbd;
-      color: #000;
-    }
-
-    .btn-register:hover {
-      background: #a0a0a0;
+    footer {
+      position: fixed;
+      bottom: 15px;
+      font-size: 12px;
+      color: #777;
     }
   </style>
 </head>
 <body>
 
-  <img src="Logo%20MAX.svg" alt="Inteligência MAX" class="logo">
+  <!-- LOGO PRINCIPAL -->
+  <img
+    src="https://raw.githubusercontent.com/aureadress/inteligenciamax/800a51e5ad1bff9256636198169aa9ce8ca37a02/Pagina%20inicial.svg"
+    alt="Inteligência MAX"
+    class="logo"
+  />
 
-  <div class="buttons">
-    <button class="btn btn-register" onclick="window.location.href='usuarios/register/'">
-      Criar Conta
-    </button>
-    <button class="btn btn-login" onclick="window.location.href='login/'">
-      Fazer Login
-    </button>
-  </div>
+  <!-- BOTÃO LOGIN -->
+  <button class="btn-login" onclick="window.location.href='login/'">
+    LOGIN
+  </button>
+
+  <!-- RODAPÉ -->
+  <footer>© 2025 Inteligência MAX — Todos os direitos reservados</footer>
 
 </body>
 </html>
